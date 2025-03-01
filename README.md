@@ -4,11 +4,11 @@ This extension add a command (`editor.action.revealTypeDefinitionAside`) and a e
 
 command:
 
-<video autoplay loop muted playsinline src="./assets/command.webm"></video>
+<video autoplay loop muted playsinline src="./assets/menu.mp4"></video>
 
 menu item:
 
-<video autoplay loop muted playsinline src="./assets/menu.webm"></video>
+<video autoplay loop muted playsinline src="./assets/command.mp4"></video>
 
 ## Config
 
