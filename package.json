@@ -3,6 +3,11 @@
   "displayName": "Open Type Definition Aside",
   "description": "Add command to open type definition aside",
   "version": "0.0.0",
+  "publisher": "bzy-debug",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/bzy-debug/vscode-extension-type-definition-aside"
+  },
   "engines": {
     "vscode": "^1.97.0"
   },
