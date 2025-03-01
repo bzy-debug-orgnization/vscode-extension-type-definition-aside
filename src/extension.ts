@@ -11,17 +11,20 @@ async function executeTypeDefinitionProvider(
   );
 }
 
-function peekLocations(
+function gotoLocations(
   uri: vscode.Uri,
   position: vscode.Position,
   locations: vscode.Location[] | vscode.LocationLink[],
+  multiple: "peek" | "gotoAndPeek" | "goto",
+  noResultsMessage: string,
 ): Thenable<void> {
   return vscode.commands.executeCommand(
-    "editor.action.peekLocations",
+    "editor.action.goToLocations",
     uri,
     position,
     locations,
-    "peek",
+    multiple,
+    noResultsMessage,
   );
 }
 
@@ -33,9 +36,7 @@ export function activate(context: vscode.ExtensionContext) {
         const uri = editor.document.uri;
         const position = editor.selection.active;
         const locations = await executeTypeDefinitionProvider(uri, position);
-        if (locations.length > 1) {
-          await peekLocations(uri, position, locations);
-        } else {
+        if (locations.length === 1) {
           const location = locations[0];
           const targetUri =
             location instanceof vscode.Location
@@ -48,10 +49,33 @@ export function activate(context: vscode.ExtensionContext) {
           if (range === undefined) {
             return;
           }
-          const document = await vscode.window.showTextDocument(targetUri, {
+          const selection = new vscode.Selection(range.start, range.start);
+          const editor = await vscode.window.showTextDocument(targetUri, {
             viewColumn: vscode.ViewColumn.Beside,
+            selection,
           });
-          document.revealRange(range, vscode.TextEditorRevealType.InCenter);
+          const highlightDecoration =
+            vscode.window.createTextEditorDecorationType({
+              backgroundColor: "rgba(250, 240, 170, 0.5)",
+            });
+          editor.setDecorations(highlightDecoration, [range]);
+          setTimeout(() => {
+            highlightDecoration.dispose();
+          }, 350);
+        } else {
+          const wordRange = editor.document.getWordRangeAtPosition(position);
+          let noResultsMessage = `No type definition found`;
+          if (wordRange !== undefined) {
+            const word = editor.document.getText(wordRange);
+            noResultsMessage = `No type definition found for '${word}'`;
+          }
+          await gotoLocations(
+            uri,
+            position,
+            locations,
+            "peek",
+            noResultsMessage,
+          );
         }
       },
     ),
