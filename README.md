@@ -4,11 +4,15 @@ This extension add a command (`editor.action.revealTypeDefinitionAside`) and a e
 
 command:
 
-<video autoplay loop muted playsinline src="./assets/menu.mp4"></video>
+<video controls muted>
+  <source src="https://github.com/bzy-debug-orgnization/vscode-extension-type-definition-aside/raw/refs/heads/main/assets/command.mp4" type="video/mp4"/>
+</video>
 
 menu item:
 
-<video autoplay loop muted playsinline src="./assets/command.mp4"></video>
+<video controls muted>
+  <source src="https://github.com/bzy-debug-orgnization/vscode-extension-type-definition-aside/raw/refs/heads/main/assets/menu.mp4" type="video/mp4"/>
+</video>
 
 ## Config
 
