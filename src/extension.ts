@@ -41,15 +41,17 @@ export function activate(context: vscode.ExtensionContext) {
             location instanceof vscode.Location
               ? location.uri
               : location.targetUri;
-          const selection =
+          const range =
             location instanceof vscode.Location
               ? location.range
               : location.targetSelectionRange;
-          const document = await vscode.workspace.openTextDocument(targetUri);
-          await vscode.window.showTextDocument(document, {
+          if (range === undefined) {
+            return;
+          }
+          const document = await vscode.window.showTextDocument(targetUri, {
             viewColumn: vscode.ViewColumn.Beside,
-            selection: selection,
           });
+          document.revealRange(range, vscode.TextEditorRevealType.InCenter);
         }
       },
     ),
