@@ -2,7 +2,7 @@
   "name": "type-definition-aside",
   "displayName": "Open Type Definition Aside",
   "description": "Add command to open type definition aside",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "bzy-debug",
   "license": "MIT",
   "repository": {
